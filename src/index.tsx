@@ -2,19 +2,52 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
+type SquarePropsType = {
+  value: string
+  onClick: () => void
+}
+type SquareStateType = {
+  value: null | string
+}
+type BoardPropsType = {
+
+}
+type BoardStateType = {
+  squares: Array<string>
+}
+
+class Square extends React.PureComponent<SquarePropsType, SquareStateType> {
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button
+        className="square"
+        onClick={() => this.props.onClick()}
+      >
+        {this.props.value}
       </button>
     );
   }
 }
 
-class Board extends React.Component {
+class Board extends React.PureComponent<BoardPropsType, BoardStateType> {
+  constructor(props: BoardPropsType) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null)
+    };
+  }
+
+  handleClick(i: number) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({ squares: squares });
+  }
+
   renderSquare(i: number) {
-    return <Square />;
+    return <Square
+      value={this.state.squares[i]}
+      onClick={() => this.handleClick(i)}
+    />;
   }
 
   render() {
