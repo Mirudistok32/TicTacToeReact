@@ -6,7 +6,22 @@ type SquarePropsType = {
   value: string
   onClick: () => void
 }
+type BoardPropsType = {
+  squares: Array<string>
+  onClick: (i: number) => void
+}
+type BoardStateType = {
+  squares: Array<string>
+  xIsNext: boolean
+}
+type GamePropsType = {
 
+}
+type GameStateType = {
+  history: Array<{ squares: Array<string> }>,
+  xIsNext: boolean,
+  stepNumber: number
+}
 
 function Square(props: SquarePropsType) {
   return (
@@ -16,14 +31,6 @@ function Square(props: SquarePropsType) {
   );
 }
 
-type BoardPropsType = {
-  squares: Array<string>
-  onClick: (i: number) => void
-}
-type BoardStateType = {
-  squares: Array<string>
-  xIsNext: boolean
-}
 class Board extends React.PureComponent<BoardPropsType, BoardStateType> {
   constructor(props: BoardPropsType) {
     super(props);
@@ -62,14 +69,7 @@ class Board extends React.PureComponent<BoardPropsType, BoardStateType> {
     );
   }
 }
-type GamePropsType = {
 
-}
-type GameStateType = {
-  history: Array<{ squares: Array<string> }>,
-  xIsNext: boolean,
-  stepNumber: number
-}
 class Game extends React.Component<GamePropsType, GameStateType> {
   constructor(props: GamePropsType) {
     super(props);
